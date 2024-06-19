@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   Image,
+  Alert,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -34,7 +35,7 @@ const address = () => {
   const [selectedDeliveryTime, setSelectedDeliveryTime] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [selectedDate, setSelectedDate] = useState(moment());
-  const [selectedAdress, setSelectedAdress] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState("");
   console.log("addresses", addresses);
   const userUid = auth?.currentUser.uid;
   console.log("userId", userUid);
@@ -76,37 +77,83 @@ const address = () => {
   }, []);
 
   const handleNext = () => {
+    if (step === 1 && !selectedAddress) {
+      // Display an alert or console log to inform the user
+      console.log("Please select an address");
+
+      
+      return;
+    }
+    if (step === 2 && !selectedTime) {
+      alert("Please select a pickup time before proceeding.");
+      return;
+    }
+    if (step === 3 && !selectedDeliveryTime) {
+      // Alert user to select a delivery option time
+      alert("Please select a delivery option time before proceeding.");
+      return;
+    }
+  
     setStep((prevStep) => {
       const nextStep = prevStep + 1;
       console.log("next step", nextStep);
-
-      if (nextStep == 5) {
+  
+      if (nextStep === 5) {
         placeOrder();
       }
-
+  
       return nextStep;
     });
   };
+  
   console.log(step);
 
+   
   const placeOrder = async () => {
-    if (!selectedAdress) {
-      console.log("Please select an address");
+    // Check if address is selected
+    if (!selectedAddress) {
+      Alert.alert(
+        "Address Not Selected",
+        "Please select an address before placing the order.",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      );
       return;
     }
+
+    // Check if pickup and delivery times are selected
     if (!selectedTime || !selectedDeliveryTime) {
-      console.log("Please select pickup and delivery times");
+      Alert.alert(
+        "Times Not Selected",
+        "Please select pickup and delivery times before placing the order.",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      );
       return;
     }
+
+    // Check if cart (or items) is empty
+    if (Object.keys(cart).length === 0) {
+      Alert.alert(
+        "Empty Cart",
+        "Please add items to your cart before placing an order.",
+        [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+      );
+      return;
+    }
+
     try {
+      // Clean the cart before proceeding
       dispatch(cleanCart());
+
+      // Replace with appropriate navigation logic
       router.replace("/(tabs)/order");
 
+      // Reference to the orders collection for the user
       const ordersCollectionRef = collection(db, "users", userUid, "orders");
 
+      // Add order document to Firestore
       const orderDocRef = await addDoc(ordersCollectionRef, {
         items: { ...cart },
-        address: selectedAdress,
+        address: selectedAddress,
         pickuptime: `${selectedTime.startTime} - ${selectedTime.endTime}`,
         deliveryTime: `${selectedDeliveryTime.startTime} - ${selectedDeliveryTime.endTime}`,
       });
@@ -443,82 +490,85 @@ const address = () => {
 
       <View style={{ backgroundColor: "#F0F8FF", flex: 1, padding: 10 }}>
         <ScrollView>
-          {step == 1 && (
-            <View>
-              <Pressable
-                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+        {step === 1 && (
+      <View>
+        {/* Add a message to inform user to select an address */}
+        {selectedAddress ? null : (
+          <Text style={{ color: 'red', marginBottom: 10 }}>
+            Please select an address before proceeding.
+          </Text>
+        )}
+
+        <Pressable
+          style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+        >
+          <AntDesign name="plus" size={24} color="black" />
+          <Pressable onPress={() => router.push("/home/add")}>
+            <Text style={{ fontSize: 16 }}>Add address</Text>
+          </Pressable>
+        </Pressable>
+
+        <View>
+          {addresses?.map((item, index) => (
+            <Pressable
+              onPress={() => setSelectedAddress(item)}
+              key={index}
+              style={{
+                backgroundColor: "white",
+                padding: 10,
+                marginVertical: 10,
+                borderRadius: 15,
+                borderWidth: selectedAddress === item ? 2 : 1,
+                borderColor: "#0066b2",
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
               >
-                <AntDesign name="plus" size={24} color="black" />
-                <Pressable onPress={() => router.push("/home/add")}>
-                  <Text style={{ fontSize: 16 }}>Add address</Text>
-                </Pressable>
-              </Pressable>
-
-              <View>
-                {addresses?.map((item, index) => (
-                  <Pressable
-                    onPress={() => setSelectedAdress(item)}
-                    key={index}
-                    style={{
-                      backgroundColor: "white",
-                      padding: 10,
-                      marginVertical: 10,
-                      borderRadius: 15,
-                      borderWidth: selectedAdress === item ? 2 : 1,
-                      borderColor: "#0066b2",
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 10,
-                        }}
-                      >
-                        <Ionicons
-                          name="location-outline"
-                          size={24}
-                          color="#0066b2"
-                        />
-                        <Text style={{ fontSize: 17, fontWeight: "500" }}>
-                          Home
-                        </Text>
-                      </View>
-                      <FontAwesome name="flag" size={24} color="#0066b2" />
-                    </View>
-
-                    <Text
-                      style={{
-                        marginTop: 10,
-                        fontSize: 15,
-                        fontWeight: "500",
-                        width: "95%",
-                      }}
-                    >
-                      {item?.hostel} {item?.landmark}
-                    </Text>
-                    <Text
-                      style={{
-                        marginTop: 6,
-                        color: "gray",
-                        fontSize: 15,
-                        fontWeight: "500",
-                      }}
-                    >
-                       {item?.contact}
-                    </Text>
-                  </Pressable>
-                ))}
+                <View
+                  style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+                >
+                  <Ionicons
+                    name="location-outline"
+                    size={24}
+                    color="#0066b2"
+                  />
+                  <Text style={{ fontSize: 17, fontWeight: "500" }}>
+                    Home
+                  </Text>
+                </View>
+                <FontAwesome name="flag" size={24} color="#0066b2" />
               </View>
-            </View>
-          )}
+
+              <Text
+                style={{
+                  marginTop: 10,
+                  fontSize: 15,
+                  fontWeight: "500",
+                  width: "95%",
+                }}
+              >
+                {item?.hostel} {item?.landmark}
+              </Text>
+              <Text
+                style={{
+                  marginTop: 6,
+                  color: "gray",
+                  fontSize: 15,
+                  fontWeight: "500",
+                }}
+              >
+                 {item?.contact}
+              </Text>
+            </Pressable>
+          ))}
+        </View>
+      </View>
+    )}
 
           {step == 2 && (
             <View
