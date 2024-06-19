@@ -44,7 +44,7 @@ const add = () => {
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ padding: 10 }}>
         <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-          Add a new Address
+          Add  new Address
         </Text>
 
        
