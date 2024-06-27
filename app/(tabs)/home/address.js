@@ -538,7 +538,7 @@ const address = () => {
                     color="#0066b2"
                   />
                   <Text style={{ fontSize: 17, fontWeight: "500" }}>
-                    Home
+                    Hostel
                   </Text>
                 </View>
                 <FontAwesome name="flag" size={24} color="#0066b2" />
