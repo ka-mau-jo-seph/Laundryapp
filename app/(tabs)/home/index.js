@@ -18,7 +18,7 @@ const Index = () => {
 
   useEffect(() => {
     // Simulated user email
-    const userEmail = "joseph@example.com";
+    const userEmail = "@example.com";
 
     // Function to extract user's name from email
     const extractNameFromEmail = (email) => {
@@ -76,8 +76,8 @@ const Index = () => {
             </Animated.View>
             <View style={styles.userInfo}>
               <View>
-                <Text style={styles.greeting}>{greeting},</Text>
-                <Text style={styles.userName}>{userName}!</Text>
+                <Text style={styles.greeting}>{greeting}!</Text>
+                {/* //<Text style={styles.userName}>{userName}!</Text> */}
               </View>
               <Pressable onPress={() => router.push("/home/profile")} style={styles.profileButton}>
                 <EvilIcons name="user" size={80} color="white" />
@@ -108,20 +108,15 @@ const Index = () => {
         }} 
         >
           <Pressable
-            //onPress={() => setSelectedOption("Wash + Fold")}
+            onPress={() => router.push("/basket/select")}
             style={{
-              backgroundColor: "#1FB0FF",
+              backgroundColor: "transparent",
               width: 80,
               height: 80,
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 40,
-              //borderWidth: 1,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              elevation: 5, // This is for Android shadow
+             
             }}
             
           >
@@ -136,20 +131,15 @@ const Index = () => {
             </Text>
           </Pressable>
           <Pressable
-            //onPress={() => setSelectedOption("Wash + Iron")}
+            onPress={() => router.push("/basket/select")}
             style={{
-              backgroundColor: "#6E9AED",
+              backgroundColor: "transparent",
               width: 80,
               height: 80,
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 40,
-              //borderWidth: 1,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              elevation: 5, // This is for Android shadow
+              
             }}
             
           >
@@ -164,20 +154,15 @@ const Index = () => {
             </Text>
           </Pressable>
           <Pressable
-            //onPress={() => setSelectedOption("Steam Iron")}
+            onPress={() => router.push("/basket/select")}
             style={{
-              backgroundColor: "#4981E9",
+              backgroundColor: "transparent",
               width: 80,
               height: 80,
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 40,
-              //borderWidth: 1,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              elevation: 5, // This is for Android shadow
+             
               
             }}
             
@@ -203,20 +188,15 @@ const Index = () => {
           alignItems: 'center',
         }} >
           <Pressable
-            //onPress={() => setSelectedOption("Dry Clean")}
+            onPress={() => router.push("/basket/select")}
             style={{
-              backgroundColor: "#80A7EF",
+              backgroundColor: "transparent",
               width: 80,
               height: 80,
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 40,
-              //borderWidth: 1,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              elevation: 5, // This is for Android shadow
+             
             }}
             
           >
@@ -232,20 +212,15 @@ const Index = () => {
           </Pressable>
           
           <Pressable
-            //onPress={() => setSelectedOption("Dry Clean")}
+            onPress={() => router.push("order")}
             style={{
-              backgroundColor: "#48BEFF",
+              backgroundColor: "transparent",
               width: 80,
               height: 80,
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 40,
-              //borderWidth: 1,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              elevation: 5, // This is for Android shadow
+              
             }}
             
           >
@@ -255,20 +230,15 @@ const Index = () => {
             </Text>
           </Pressable>
           <Pressable
-            //onPress={() => setSelectedOption("Dry Clean")}
+            onPress={() => router.push("order")}
             style={{
-              backgroundColor: "#0FFA4A",
+              backgroundColor: "transparent",
               width: 80,
               height: 80,
               justifyContent: "center",
               alignItems: "center",
               borderRadius: 40,
-              //borderWidth: 1,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 4 },
-              shadowOpacity: 0.8,
-              shadowRadius: 10,
-              elevation: 5, // This is for Android shadow
+              
             }}
             
           >
