@@ -8,6 +8,7 @@ export default function Layout(){
       <Stack.Screen name="address"/>
       <Stack.Screen name="add"/>
       <Stack.Screen name="profile"/>
+      <Stack.Screen name="payment"/>
     </Stack>
     </>
   )
