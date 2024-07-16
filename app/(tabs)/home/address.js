@@ -7,6 +7,7 @@ import {
   View,
   Image,
   Alert,
+  TextInput,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -81,7 +82,7 @@ const address = () => {
       // Display an alert or console log to inform the user
       console.log("Please select an address");
 
-      
+
       return;
     }
     if (step === 2 && !selectedTime) {
@@ -93,22 +94,22 @@ const address = () => {
       alert("Please select a delivery option time before proceeding.");
       return;
     }
-  
+
     setStep((prevStep) => {
       const nextStep = prevStep + 1;
       console.log("next step", nextStep);
-  
-      if (nextStep === 5) {
+
+      if (nextStep === 6) {
         placeOrder();
       }
-  
+
       return nextStep;
     });
   };
-  
+
   console.log(step);
 
-   
+
   const placeOrder = async () => {
     // Check if address is selected
     if (!selectedAddress) {
@@ -311,8 +312,8 @@ const address = () => {
               borderRadius: 5,
               backgroundColor:
                 selectedTime &&
-                selectedTime.startTime === option.startTime &&
-                selectedTime.endTime === option.endTime
+                  selectedTime.startTime === option.startTime &&
+                  selectedTime.endTime === option.endTime
                   ? "#0066b2"
                   : "white",
             }}
@@ -322,8 +323,8 @@ const address = () => {
                 textAlign: "center",
                 color:
                   selectedTime &&
-                  selectedTime.startTime === option.startTime &&
-                  selectedTime.endTime === option.endTime
+                    selectedTime.startTime === option.startTime &&
+                    selectedTime.endTime === option.endTime
                     ? "white"
                     : "black",
               }}
@@ -354,8 +355,8 @@ const address = () => {
             borderRadius: 5,
             backgroundColor:
               selectedDeliveryTime &&
-              selectedDeliveryTime.startTime === option.startTime &&
-              selectedDeliveryTime.endTime === option.endTime
+                selectedDeliveryTime.startTime === option.startTime &&
+                selectedDeliveryTime.endTime === option.endTime
                 ? "#0066b2"
                 : "white",
           }}
@@ -365,8 +366,8 @@ const address = () => {
               textAlign: "center",
               color:
                 selectedDeliveryTime &&
-                selectedDeliveryTime.startTime === option.startTime &&
-                selectedDeliveryTime.endTime === option.endTime
+                  selectedDeliveryTime.startTime === option.startTime &&
+                  selectedDeliveryTime.endTime === option.endTime
                   ? "white"
                   : "black",
             }}
@@ -397,10 +398,10 @@ const address = () => {
             alignItems: "center",
           }}
         >
-          <Pressable 
-          onPress={handleBack}
+          <Pressable
+            onPress={handleBack}
           >
-          <Ionicons name="chevron-back" size={24} color="white" />
+            <Ionicons name="chevron-back" size={24} color="white" />
           </Pressable>
         </View>
         <Text style={{ flex: 1, fontSize: 16, fontWeight: "500" }}>
@@ -416,9 +417,9 @@ const address = () => {
             alignItems: "center",
           }}
         ><Pressable
-        onPress={() => router.push("/home")}
+          onPress={() => router.push("/home")}
         >
-          <Entypo name="cross" size={24} color="white" />
+            <Entypo name="cross" size={24} color="white" />
           </Pressable>
         </View>
       </View>
@@ -435,7 +436,7 @@ const address = () => {
         }}
       >
         <Pressable
-        
+
           style={{
             width: 30,
             height: 30,
@@ -490,85 +491,85 @@ const address = () => {
 
       <View style={{ backgroundColor: "#F0F8FF", flex: 1, padding: 10 }}>
         <ScrollView>
-        {step === 1 && (
-      <View>
-        {/* Add a message to inform user to select an address */}
-        {selectedAddress ? null : (
-          <Text style={{ color: 'red', marginBottom: 10 }}>
-            Please select an address before proceeding.
-          </Text>
-        )}
+          {step === 1 && (
+            <View>
+              {/* Add a message to inform user to select an address */}
+              {selectedAddress ? null : (
+                <Text style={{ color: 'red', marginBottom: 10 }}>
+                  Please select an address before proceeding.
+                </Text>
+              )}
 
-        <Pressable
-          style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-        >
-          <AntDesign name="plus" size={24} color="black" />
-          <Pressable onPress={() => router.push("/home/add")}>
-            <Text style={{ fontSize: 16 }}>Add address</Text>
-          </Pressable>
-        </Pressable>
-
-        <View>
-          {addresses?.map((item, index) => (
-            <Pressable
-              onPress={() => setSelectedAddress(item)}
-              key={index}
-              style={{
-                backgroundColor: "white",
-                padding: 10,
-                marginVertical: 10,
-                borderRadius: 15,
-                borderWidth: selectedAddress === item ? 2 : 1,
-                borderColor: "#0066b2",
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
+              <Pressable
+                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
               >
-                <View
-                  style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
-                >
-                  <Ionicons
-                    name="location-outline"
-                    size={24}
-                    color="#0066b2"
-                  />
-                  <Text style={{ fontSize: 17, fontWeight: "500" }}>
-                    Hostel
-                  </Text>
-                </View>
-                <FontAwesome name="flag" size={24} color="#0066b2" />
+                <AntDesign name="plus" size={24} color="black" />
+                <Pressable onPress={() => router.push("/home/add")}>
+                  <Text style={{ fontSize: 16 }}>Add address</Text>
+                </Pressable>
+              </Pressable>
+
+              <View>
+                {addresses?.map((item, index) => (
+                  <Pressable
+                    onPress={() => setSelectedAddress(item)}
+                    key={index}
+                    style={{
+                      backgroundColor: "white",
+                      padding: 10,
+                      marginVertical: 10,
+                      borderRadius: 15,
+                      borderWidth: selectedAddress === item ? 2 : 1,
+                      borderColor: "#0066b2",
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <View
+                        style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+                      >
+                        <Ionicons
+                          name="location-outline"
+                          size={24}
+                          color="#0066b2"
+                        />
+                        <Text style={{ fontSize: 17, fontWeight: "500" }}>
+                          Hostel
+                        </Text>
+                      </View>
+                      <FontAwesome name="flag" size={24} color="#0066b2" />
+                    </View>
+
+                    <Text
+                      style={{
+                        marginTop: 10,
+                        fontSize: 15,
+                        fontWeight: "500",
+                        width: "95%",
+                      }}
+                    >
+                      {item?.hostel} {item?.landmark}
+                    </Text>
+                    <Text
+                      style={{
+                        marginTop: 6,
+                        color: "gray",
+                        fontSize: 15,
+                        fontWeight: "500",
+                      }}
+                    >
+                      {item?.contact}
+                    </Text>
+                  </Pressable>
+                ))}
               </View>
-
-              <Text
-                style={{
-                  marginTop: 10,
-                  fontSize: 15,
-                  fontWeight: "500",
-                  width: "95%",
-                }}
-              >
-                {item?.hostel} {item?.landmark}
-              </Text>
-              <Text
-                style={{
-                  marginTop: 6,
-                  color: "gray",
-                  fontSize: 15,
-                  fontWeight: "500",
-                }}
-              >
-                 {item?.contact}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-      </View>
-    )}
+            </View>
+          )}
 
           {step == 2 && (
             <View
@@ -883,6 +884,67 @@ const address = () => {
               </View>
             </View>
           )}
+          {step === 5 && (
+            <View
+              style={{
+                marginTop: 10,
+                backgroundColor: "white",
+                borderRadius: 10,
+                padding: 20,
+              }}
+            >
+              <Text style={{ fontSize: 16, fontWeight: "600", marginBottom: 10 }}>
+                Payment Details
+              </Text>
+
+              <View style={{ marginBottom: 10 }}>
+                <Text style={{ marginBottom: 5 }}>Phone Number</Text>
+                <TextInput
+                  style={{
+                    height: 40,
+                    borderColor: "gray",
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    paddingLeft: 10,
+                  }}
+                  keyboardType="phone-pad"
+                  placeholder="Enter your phone number"
+                />
+              </View>
+
+              <View style={{ marginBottom: 10 }}>
+                <Text style={{ marginBottom: 5 }}>Amount to Pay</Text>
+                <TextInput
+                  style={{
+                    height: 40,
+                    borderColor: "gray",
+                    borderWidth: 1,
+                    borderRadius: 5,
+                    paddingLeft: 10,
+                  }}
+                  keyboardType="numeric"
+                  placeholder="Enter amount"
+                  value={`Kes ${total + 25 + 150}`}
+                  editable={false}
+                />
+              </View>
+
+              <Pressable
+                style={{
+                  backgroundColor: "#0066b2",
+                  padding: 10,
+                  borderRadius: 5,
+                  alignItems: "center",
+                }}
+                onPress={() => {
+                  // Handle payment logic here
+                }}
+              >
+                <Text style={{ color: "white", fontWeight: "600" }}>Pay</Text>
+              </Pressable>
+            </View>
+          )}
+
         </ScrollView>
       </View>
 
